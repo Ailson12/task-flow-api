@@ -1,10 +1,14 @@
 package com.ailson.taskflow.controller;
 
+import com.ailson.taskflow.dto.board.BoardDTO;
 import com.ailson.taskflow.request.BoardRequest;
 import com.ailson.taskflow.service.BoardService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin("*")
@@ -12,6 +16,12 @@ import org.springframework.web.bind.annotation.*;
 public class BoardController {
     @Autowired
     private BoardService boardService;
+
+    @GetMapping
+    public ResponseEntity<List<BoardDTO>> findAll() {
+        List<BoardDTO> boards = this.boardService.findAll();
+        return ResponseEntity.ok(boards);
+    }
 
     @PostMapping
     public void create(@Valid @RequestBody BoardRequest request) {
