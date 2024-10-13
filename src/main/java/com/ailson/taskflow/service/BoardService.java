@@ -22,6 +22,11 @@ public class BoardService {
         return boards.stream().map(this.boardMapper::toDTO).toList();
     }
 
+    public BoardDTO findById(Long id) {
+        Board board = this.boardRepository.findById(id).orElseThrow();
+        return this.boardMapper.toDTO(board);
+    }
+
     public void create(BoardRequest request) {
         Board board = this.boardMapper.toEntity(request);
         this.boardRepository.save(board);

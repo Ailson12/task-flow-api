@@ -27,4 +27,12 @@ public class BoardController {
     public void create(@Valid @RequestBody BoardRequest request) {
         this.boardService.create(request);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<BoardDTO> findById(
+            @PathVariable Long id
+    ) {
+        BoardDTO board = this.boardService.findById(id);
+        return ResponseEntity.ok(board);
+    }
 }
