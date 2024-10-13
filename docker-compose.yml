@@ -1,0 +1,18 @@
+version: '3.8'  # Define a versão do Docker Compose
+
+services:
+  postgres:
+    image: postgres:14.5
+    container_name: taskflow-postgres
+    environment:
+      POSTGRES_DB: taskflow_db
+      POSTGRES_USER: taskflow_user
+      POSTGRES_PASSWORD: strongpassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Persistência de dados
+
+volumes:
+  postgres_data:
+    driver: local
