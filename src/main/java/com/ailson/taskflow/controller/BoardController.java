@@ -43,4 +43,9 @@ public class BoardController {
     ) {
         this.boardService.update(id, request);
     }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        this.boardService.delete(id);
+    }
 }

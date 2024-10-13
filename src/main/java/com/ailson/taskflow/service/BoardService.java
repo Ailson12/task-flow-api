@@ -35,4 +35,8 @@ public class BoardService {
         Board boardUpdated = BoardMapper.convertToUpdate(board, request);
         this.boardRepository.save(boardUpdated);
     }
+
+    public void delete(Long id) {
+        this.boardRepository.deleteById(id);
+    }
 }
