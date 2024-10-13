@@ -5,19 +5,20 @@ import com.ailson.taskflow.model.Board;
 import com.ailson.taskflow.request.BoardRequest;
 
 public class BoardMapper {
-    public BoardDTO toDTO(Board board) {
+    public static BoardDTO toDTO(Board board) {
         return new BoardDTO(
                 board.getId(),
                 board.getTitle()
         );
     }
 
-    public Board toEntity(BoardRequest request) {
-        if (request == null) {
-            return null;
-        }
-
+    public static Board convertToCreate(BoardRequest request) {
         Board board = new Board();
+        board.setTitle(request.getTitle());
+        return board;
+    }
+
+    public static Board convertToUpdate(Board board, BoardRequest request) {
         board.setTitle(request.getTitle());
         return board;
     }

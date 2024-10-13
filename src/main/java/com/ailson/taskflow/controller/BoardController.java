@@ -35,4 +35,12 @@ public class BoardController {
         BoardDTO board = this.boardService.findById(id);
         return ResponseEntity.ok(board);
     }
+
+    @PutMapping("/{id}")
+    public void update(
+            @PathVariable Long id,
+            @Valid @RequestBody BoardRequest request
+    ) {
+        this.boardService.update(id, request);
+    }
 }

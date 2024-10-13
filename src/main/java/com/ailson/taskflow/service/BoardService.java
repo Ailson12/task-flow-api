@@ -15,20 +15,24 @@ public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
 
-    private final BoardMapper boardMapper = new BoardMapper();
-
     public List<BoardDTO> findAll() {
         List<Board> boards = this.boardRepository.findAll();
-        return boards.stream().map(this.boardMapper::toDTO).toList();
+        return boards.stream().map(BoardMapper::toDTO).toList();
     }
 
     public BoardDTO findById(Long id) {
         Board board = this.boardRepository.findById(id).orElseThrow();
-        return this.boardMapper.toDTO(board);
+        return BoardMapper.toDTO(board);
     }
 
     public void create(BoardRequest request) {
-        Board board = this.boardMapper.toEntity(request);
+        Board board = BoardMapper.convertToCreate(request);
         this.boardRepository.save(board);
+    }
+
+    public void update(Long id, BoardRequest request) {
+        Board board = this.boardRepository.findById(id).orElseThrow();
+        Board boardUpdated = BoardMapper.convertToUpdate(board, request);
+        this.boardRepository.save(boardUpdated);
     }
 }
