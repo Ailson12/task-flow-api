@@ -1,10 +1,11 @@
 package com.ailson.taskflow.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "task_status")
@@ -13,4 +14,12 @@ import lombok.Setter;
 public class TaskStatus extends BaseEntity<Long> {
     @Column(nullable = false)
     private String title;
+
+    @ManyToMany
+    @JoinTable(
+            name = "board_task_status", //  Name of the join table
+            joinColumns = @JoinColumn(name = "task_status_id"), // Column that references the TaskStatus entity
+            inverseJoinColumns = @JoinColumn(name = "board_id") // Column that references the Board entity)
+    )
+    private Set<Board> boards = new HashSet<>();
 }
