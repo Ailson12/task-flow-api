@@ -12,13 +12,13 @@ public class BoardMapper {
         );
     }
 
-    public static Board convertToCreate(BoardRequest request) {
+    public static Board toCreate(BoardRequest request) {
         Board board = new Board();
         board.setTitle(request.getTitle());
         return board;
     }
 
-    public static Board convertToUpdate(Board board, BoardRequest request) {
+    public static Board toUpdate(Board board, BoardRequest request) {
         board.setTitle(request.getTitle());
         return board;
     }

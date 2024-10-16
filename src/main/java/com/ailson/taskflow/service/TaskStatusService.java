@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TaskStatusService {
@@ -18,6 +19,10 @@ public class TaskStatusService {
         List<TaskStatus> entities = this.taskStatusRepository.findAll();
         // method reference TaskStatusMapper::toDTO
         return entities.stream().map(TaskStatusMapper::toDTO).toList();
+    }
+
+    public Optional<TaskStatus> findById(Long id) {
+        return this.taskStatusRepository.findById(id);
     }
 
     public List<TaskStatus> findAllByIds(List<Long> ids) {

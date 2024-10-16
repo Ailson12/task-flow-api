@@ -6,9 +6,9 @@ import com.ailson.taskflow.model.Board;
 import com.ailson.taskflow.model.TaskStatus;
 import com.ailson.taskflow.repository.BoardRepository;
 import com.ailson.taskflow.request.BoardRequest;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -36,7 +36,7 @@ public class BoardService {
                 request.getTaskStatusIds()
         );
 
-        Board board = BoardMapper.convertToCreate(request);
+        Board board = BoardMapper.toCreate(request);
         // need to synchronize the two models: board and task-status
         newTaskStatus.forEach((taskStatus) -> {
             board.getTaskStatus().add(taskStatus);
@@ -49,7 +49,7 @@ public class BoardService {
     @Transactional
     public void update(Long id, BoardRequest request) {
         Board board = this.boardRepository.findById(id).orElseThrow();
-        Board boardUpdated = BoardMapper.convertToUpdate(board, request);
+        Board boardUpdated = BoardMapper.toUpdate(board, request);
 
         // remove old relationship
         board.getTaskStatus().forEach(taskStatus -> taskStatus.getBoards().remove(board));

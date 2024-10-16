@@ -2,6 +2,7 @@ package com.ailson.taskflow.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.HashSet;
@@ -10,6 +11,7 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 @Table(name = "boards")
 public class Board extends BaseEntity<Long> {
     @Column(nullable = false)
@@ -17,4 +19,8 @@ public class Board extends BaseEntity<Long> {
 
     @ManyToMany(mappedBy = "boards", cascade = CascadeType.ALL)
     private Set<TaskStatus> taskStatus = new HashSet<>();
+
+    public Board(Long id) {
+        this.setId(id);
+    }
 }
