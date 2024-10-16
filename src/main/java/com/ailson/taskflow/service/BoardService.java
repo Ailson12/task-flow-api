@@ -3,8 +3,10 @@ package com.ailson.taskflow.service;
 import com.ailson.taskflow.dto.board.BoardDTO;
 import com.ailson.taskflow.mapper.BoardMapper;
 import com.ailson.taskflow.model.Board;
+import com.ailson.taskflow.model.TaskStatus;
 import com.ailson.taskflow.repository.BoardRepository;
 import com.ailson.taskflow.request.BoardRequest;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,9 @@ import java.util.List;
 public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
+
+    @Autowired
+    private TaskStatusService taskStatusService;
 
     public List<BoardDTO> findAll() {
         List<Board> boards = this.boardRepository.findAll();
@@ -25,14 +30,38 @@ public class BoardService {
         return BoardMapper.toDTO(board);
     }
 
+    @Transactional
     public void create(BoardRequest request) {
+        List<TaskStatus> newTaskStatus = this.taskStatusService.findAllByIds(
+                request.getTaskStatusIds()
+        );
+
         Board board = BoardMapper.convertToCreate(request);
+        // need to synchronize the two models: board and task-status
+        newTaskStatus.forEach((taskStatus) -> {
+            board.getTaskStatus().add(taskStatus);
+            taskStatus.getBoards().add(board);
+        });
+
         this.boardRepository.save(board);
     }
 
+    @Transactional
     public void update(Long id, BoardRequest request) {
         Board board = this.boardRepository.findById(id).orElseThrow();
         Board boardUpdated = BoardMapper.convertToUpdate(board, request);
+
+        // remove old relationship
+        board.getTaskStatus().forEach(taskStatus -> taskStatus.getBoards().remove(board));
+        board.getTaskStatus().clear();
+
+        List<TaskStatus> newTaskStatus = this.taskStatusService.findAllByIds(request.getTaskStatusIds());
+        // need to synchronize the two models: board and task-status
+        newTaskStatus.forEach(taskStatus -> {
+            board.getTaskStatus().add(taskStatus);
+            taskStatus.getBoards().add(board);
+        });
+
         this.boardRepository.save(boardUpdated);
     }
 

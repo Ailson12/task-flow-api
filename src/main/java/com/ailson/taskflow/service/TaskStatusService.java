@@ -19,4 +19,8 @@ public class TaskStatusService {
         // method reference TaskStatusMapper::toDTO
         return entities.stream().map(TaskStatusMapper::toDTO).toList();
     }
+
+    public List<TaskStatus> findAllByIds(List<Long> ids) {
+        return this.taskStatusRepository.findAllById(ids);
+    }
 }

@@ -15,6 +15,6 @@ public class Board extends BaseEntity<Long> {
     @Column(nullable = false)
     private String title;
 
-    @ManyToMany(mappedBy = "boards")
+    @ManyToMany(mappedBy = "boards", cascade = CascadeType.ALL)
     private Set<TaskStatus> taskStatus = new HashSet<>();
 }
