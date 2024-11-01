@@ -1,0 +1,12 @@
+CREATE TABLE IF NOT EXISTS tasks (
+    id BIGINT NOT NULL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    task_order INT NOT NULL,
+    description TEXT NOT NULL,
+    task_status_id BIGINT NOT NULL,
+    board_id BIGINT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (task_status_id) REFERENCES task_status(id) ON DELETE CASCADE,
+    FOREIGN KEY (board_id) REFERENCES boards(id) ON DELETE CASCADE
+);
