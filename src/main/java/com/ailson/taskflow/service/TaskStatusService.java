@@ -28,4 +28,9 @@ public class TaskStatusService {
     public List<TaskStatus> findAllByIds(List<Long> ids) {
         return this.taskStatusRepository.findAllById(ids);
     }
+
+    public List<TaskStatusDTO> findAllByBoard(Long id) {
+        List<TaskStatus> entities = this.taskStatusRepository.findAllByBoard(id);
+        return entities.stream().map(TaskStatusMapper::toDTO).toList();
+    }
 }

@@ -21,7 +21,6 @@ public class TaskRequest {
     @Size(min = 5, max = 500)
     private String description;
 
-    @NotNull
     @PositiveOrZero
     private Integer order;
 

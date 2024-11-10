@@ -17,7 +17,7 @@ public class BoardRequest {
     @Size(min = 5, max = 250)
     private String title;
 
-    @Size(min = 5, max = 500)
+    @Size(max = 500)
     private String description;
 
     @NotNull

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -19,6 +20,14 @@ public class TaskStatusController {
     @GetMapping("/all")
     public ResponseEntity<List<TaskStatusDTO>> findAll() {
         List<TaskStatusDTO> taskStatusDTOS = this.taskStatusService.findAll();
+        return ResponseEntity.ok(taskStatusDTOS);
+    }
+
+    @GetMapping("/all/board")
+    public ResponseEntity<List<TaskStatusDTO>> findAllByBoard(
+            @RequestParam Long boardId
+    ) {
+        List<TaskStatusDTO> taskStatusDTOS = this.taskStatusService.findAllByBoard(boardId);
         return ResponseEntity.ok(taskStatusDTOS);
     }
 }

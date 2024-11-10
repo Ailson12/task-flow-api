@@ -27,7 +27,9 @@ public class TaskMapper {
         Task task = new Task();
         task.setTitle(request.getTitle());
         task.setDescription(request.getDescription());
-        task.setOrder(request.getOrder());
+
+        Integer order = request.getOrder();
+        task.setOrder(order == null ? 0 : order);
 
         return task;
     }
