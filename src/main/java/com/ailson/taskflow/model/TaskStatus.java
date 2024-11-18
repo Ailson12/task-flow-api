@@ -15,7 +15,7 @@ public class TaskStatus extends BaseEntity<Long> {
     @Column(nullable = false)
     private String title;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "board_task_status", //  Name of the join table
             joinColumns = @JoinColumn(name = "task_status_id"), // Column that references the TaskStatus entity

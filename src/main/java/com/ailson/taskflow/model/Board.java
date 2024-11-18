@@ -20,7 +20,7 @@ public class Board extends BaseEntity<Long> {
     @Column()
     private String description;
 
-    @ManyToMany(mappedBy = "boards", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "boards")
     private Set<TaskStatus> taskStatus = new HashSet<>();
 
     public Board(Long id) {

@@ -66,6 +66,12 @@ public class BoardService {
     }
 
     public void delete(Long id) {
-        this.boardRepository.deleteById(id);
+        Board board = this.boardRepository.findById(id).orElseThrow();
+
+        // remove old relationship
+        board.getTaskStatus().forEach(taskStatus -> taskStatus.getBoards().remove(board));
+        board.getTaskStatus().clear();
+
+        this.boardRepository.delete(board);
     }
 }
