@@ -8,6 +8,7 @@ import com.ailson.taskflow.request.TaskRequest;
 public class TaskMapper {
     public static TaskDTO toDTO(Task task) {
         TaskDTO dto = new TaskDTO();
+        dto.setId(task.getId());
         dto.setTitle(task.getTitle());
         dto.setDescription(task.getDescription());
         dto.setOrder(task.getOrder());

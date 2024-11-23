@@ -45,4 +45,9 @@ public class TaskService {
 
         this.taskRepository.save(task);
     }
+
+    @Transactional
+    public void delete(Long id) {
+        this.taskRepository.deleteById(id);
+    }
 }

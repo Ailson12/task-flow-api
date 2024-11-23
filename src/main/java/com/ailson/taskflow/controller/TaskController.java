@@ -28,4 +28,9 @@ public class TaskController {
     public void create(@Valid @RequestBody TaskRequest request) {
         this.taskService.create(request);
     }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        this.taskService.delete(id);
+    }
 }
