@@ -3,7 +3,6 @@ package com.ailson.taskflow.mapper;
 import com.ailson.taskflow.dto.task.TaskDTO;
 import com.ailson.taskflow.dto.taskStatus.TaskStatusDTO;
 import com.ailson.taskflow.model.Task;
-import com.ailson.taskflow.model.TaskStatus;
 import com.ailson.taskflow.request.TaskRequest;
 
 public class TaskMapper {
@@ -13,12 +12,8 @@ public class TaskMapper {
         dto.setDescription(task.getDescription());
         dto.setOrder(task.getOrder());
 
-        TaskStatus taskStatus = task.getTaskStatus();
-        TaskStatusDTO taskStatusDTO = new TaskStatusDTO(
-                taskStatus.getId(),
-                taskStatus.getTitle()
-        );
-        dto.setTaskStatus(taskStatusDTO);
+        TaskStatusDTO taskStatus = TaskStatusMapper.toDTO(task.getTaskStatus());
+        dto.setTaskStatus(taskStatus);
 
         return dto;
     }

@@ -1,15 +1,24 @@
 package com.ailson.taskflow.mapper;
 
 import com.ailson.taskflow.dto.board.BoardDTO;
+import com.ailson.taskflow.dto.taskStatus.TaskStatusDTO;
 import com.ailson.taskflow.model.Board;
 import com.ailson.taskflow.request.BoardRequest;
 
+import java.util.List;
+
 public class BoardMapper {
     public static BoardDTO toDTO(Board board) {
+        List<TaskStatusDTO> taskStatusList = board.getTaskStatus()
+                .stream()
+                .map(TaskStatusMapper::toDTO)
+                .toList();
+
         return new BoardDTO(
                 board.getId(),
                 board.getTitle(),
-                board.getDescription()
+                board.getDescription(),
+                taskStatusList
         );
     }
 
