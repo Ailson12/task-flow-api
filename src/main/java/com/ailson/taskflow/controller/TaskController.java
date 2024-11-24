@@ -29,6 +29,14 @@ public class TaskController {
         this.taskService.create(request);
     }
 
+    @PutMapping("/{id}")
+    public void update(
+            @PathVariable Long id,
+            @Valid @RequestBody TaskRequest request
+    ) {
+        this.taskService.update(id, request);
+    }
+
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         this.taskService.delete(id);

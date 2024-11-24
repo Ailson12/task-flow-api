@@ -47,6 +47,14 @@ public class TaskService {
     }
 
     @Transactional
+    public void update(Long id, TaskRequest request) {
+        Task task = this.taskRepository.findById(id).orElseThrow();
+        Task taskUpdated = TaskMapper.toUpdate(task, request);
+
+        this.taskRepository.save(taskUpdated);
+    }
+
+    @Transactional
     public void delete(Long id) {
         this.taskRepository.deleteById(id);
     }

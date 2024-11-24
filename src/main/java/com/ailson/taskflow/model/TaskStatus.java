@@ -2,6 +2,7 @@ package com.ailson.taskflow.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.HashSet;
@@ -11,7 +12,12 @@ import java.util.Set;
 @Table(name = "task_status")
 @Getter
 @Setter
+@NoArgsConstructor
 public class TaskStatus extends BaseEntity<Long> {
+    public TaskStatus(Long id) {
+        this.setId(id);
+    }
+
     @Column(nullable = false)
     private String title;
 
