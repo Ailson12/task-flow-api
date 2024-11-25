@@ -26,7 +26,7 @@ Certifique-se de ter as seguintes ferramentas instaladas:
 Clone o repositório para sua máquina local:
 
 ```bash
-git clone <URL_DO_REPOSITORIO>
+git clone https://github.com/Ailson12/task-flow-api
 cd taskflow
 ```
 
