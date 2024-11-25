@@ -1,6 +1,7 @@
 package com.ailson.taskflow.controller;
 
 import com.ailson.taskflow.dto.task.TaskDTO;
+import com.ailson.taskflow.request.TaskOrderRequest;
 import com.ailson.taskflow.request.TaskRequest;
 import com.ailson.taskflow.service.TaskService;
 import jakarta.validation.Valid;
@@ -35,6 +36,13 @@ public class TaskController {
             @Valid @RequestBody TaskRequest request
     ) {
         this.taskService.update(id, request);
+    }
+
+    @PutMapping("/update-order")
+    public void updateOrder(
+            @Valid @RequestBody TaskOrderRequest request
+    ) {
+        this.taskService.updateOrder(request);
     }
 
     @DeleteMapping("/{id}")
